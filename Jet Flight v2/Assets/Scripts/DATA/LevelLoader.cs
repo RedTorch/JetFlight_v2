@@ -8,6 +8,9 @@ public class LevelLoader : MonoBehaviour
     [SerializeField] private GameObject[] levelPrefabs;
     private GameObject currentLevel;
     private int difficulty = 0;
+    [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private Transform spawnPoint;
+    private GameObject player;
 
     void Start()
     {
@@ -20,11 +23,21 @@ public class LevelLoader : MonoBehaviour
         if(currentLevel) {
             Instantiate(currentLevel, Vector3.zero, Quaternion.identity);
         }
+        SpawnPlayer();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    void SpawnPlayer(int primary = 1, int secondary = 1, int equipment = 1) {
+        if(player) {
+            print("Error: player already exists; duplicate player character cannot be spawned");
+            return;
+        }
+        Instantiate(playerPrefab, spawnPoint.position, Quaternion.identity);
+        // Later: set player's Primary, Secondary, and Equipment
     }
 }
