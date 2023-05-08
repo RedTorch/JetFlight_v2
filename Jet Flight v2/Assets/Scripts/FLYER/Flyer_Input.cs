@@ -5,17 +5,17 @@ using UnityEngine;
 public class Flyer_Input : MonoBehaviour
 {
     [SerializeField] private Flyer_FlightController myFc;
+    private Camera mainCam;
     // Start is called before the first frame update
     void Start()
     {
-        
+        mainCam = Camera.main;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetAxis("Horizontal") != 0f) {
-            myFc.RotateByValue(-1f * Input.GetAxis("Horizontal"));
-        }
+        myFc.SetRotationTarget(mainCam.ScreenToWorldPoint(Input.mousePosition));
+        myFc.SetThrust(Input.GetKey("z"));
     }
 }

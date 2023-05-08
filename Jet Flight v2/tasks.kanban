@@ -1,6 +1,11 @@
 {
   "lists": [
     {
+      "id": "723e9a1f-efd0-43d3-8f74-a42962f56a55",
+      "title": "Ideas",
+      "cards": []
+    },
+    {
       "id": "159a6b4a-3ec1-4bc8-b7c5-4d6d14b13940",
       "title": "Todo",
       "cards": [
@@ -90,9 +95,19 @@
       "cards": []
     },
     {
-      "id": "723e9a1f-efd0-43d3-8f74-a42962f56a55",
-      "title": "Ideas",
-      "cards": []
+      "id": "24230581-d0c3-4284-a145-682d13828575",
+      "title": "Bugs",
+      "cards": [
+        {
+          "id": "4af83bfb-280a-4f0d-87e9-a75094b468ab",
+          "listId": "24230581-d0c3-4284-a145-682d13828575",
+          "title": "Camera/ plane jitter",
+          "description": "",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        }
+      ]
     }
   ],
   "archive": {
