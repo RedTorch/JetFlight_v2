@@ -16,9 +16,6 @@ public class Flyer_FlightController : MonoBehaviour
     [Header("Maneuverability")]
     [SerializeField] private float rotationSpeed = 180f;
 
-    [Header("Debug")]
-    [SerializeField] private TMP_Text myTm;
-
     private bool enabled_Rotation = true;
     private bool enabled_Thrust = true;
     private bool enabled_Drag = true;
@@ -26,6 +23,9 @@ public class Flyer_FlightController : MonoBehaviour
     private bool active_Thrust = false;
 
     private float goalRotation = 0f;
+
+    private float multiplier_Drag_onThrustEnabled = 1f;
+    private float multiplier_RotateSpeed_onThrustEnabled = 1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,17 +40,15 @@ public class Flyer_FlightController : MonoBehaviour
 
     void FixedUpdate() {
         if(enabled_Rotation) {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, goalRotation), rotationSpeed * Time.deltaTime);
+            multiplier_RotateSpeed_onThrustEnabled = active_Thrust ? 1f : 2f;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, goalRotation), rotationSpeed * multiplier_RotateSpeed_onThrustEnabled * Time.deltaTime);
         }
         if(enabled_Drag) {
             float angleOfAttack = Mathf.Clamp(Vector2.Angle(transform.right, myRb.velocity), 0f, 90f);
             float speed = myRb.velocity.magnitude;
+            multiplier_Drag_onThrustEnabled = active_Thrust ? 1f : 0.25f;
             // myRb.AddForce(dragCoeff * Mathf.Pow(speed, 2f) * (0.5f + (angleOfAttack/90f)));
-            myRb.drag = dragCoeff * Mathf.Pow(speed, 2f) * (0.5f + (angleOfAttack/90f));
-        }
-        if(myTm) {
-            string string_velocity = "Velocity: " + myRb.velocity.magnitude;
-            myTm.text = "Flyer:\n" + string_velocity;
+            myRb.drag = dragCoeff * Mathf.Pow(speed, 2f) * (0.5f + (angleOfAttack/90f)) * multiplier_Drag_onThrustEnabled;
         }
         if(enabled_Thrust && active_Thrust) {
             myRb.AddForce(transform.right * maxThrust);
@@ -87,5 +85,10 @@ public class Flyer_FlightController : MonoBehaviour
 
     public void SetThrust(bool isThrust) {
         active_Thrust = isThrust;
+    }
+
+    public string GetDebugString() {
+        string ret = "Flyer_FlightController [" + gameObject.name + "]\n" + "Velocity: " + myRb.velocity.magnitude;
+        return ret;
     }
 }
