@@ -435,11 +435,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8546e3a4b0bc64d9d93039725143e808, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myPm: {fileID: 657640865}
   projectilePrefab: {fileID: 3216110045889275612, guid: 91ca18744b47440b8b32a15c9ea8479e, type: 3}
   capacity: 5
   RPM: 120
   reloadTime: 2
-  reloadMode_isRecharge: 0
 --- !u!1 &288714573
 GameObject:
   m_ObjectHideFlags: 0
@@ -836,6 +836,7 @@ GameObject:
   - component: {fileID: 657640863}
   - component: {fileID: 657640865}
   - component: {fileID: 657640864}
+  - component: {fileID: 657640866}
   m_Layer: 0
   m_Name: Flyer_player
   m_TagString: Untagged
@@ -942,6 +943,19 @@ MonoBehaviour:
   primary: {fileID: 1330166454}
   secondary: {fileID: 283569089}
   equipment: {fileID: 699971460}
+--- !u!114 &657640866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657640860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4f1ed8b7f4042b4b406800abd9fafb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP: 10
 --- !u!1 &699971458
 GameObject:
   m_ObjectHideFlags: 0
@@ -986,11 +1000,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8546e3a4b0bc64d9d93039725143e808, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myPm: {fileID: 657640865}
   projectilePrefab: {fileID: 3216110045889275612, guid: 91ca18744b47440b8b32a15c9ea8479e, type: 3}
   capacity: 5
   RPM: 120
   reloadTime: 2
-  reloadMode_isRecharge: 0
 --- !u!1 &779993130
 GameObject:
   m_ObjectHideFlags: 0
@@ -1503,11 +1517,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8546e3a4b0bc64d9d93039725143e808, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myPm: {fileID: 657640865}
   projectilePrefab: {fileID: 3216110045889275612, guid: 91ca18744b47440b8b32a15c9ea8479e, type: 3}
   capacity: 5
   RPM: 120
   reloadTime: 2
-  reloadMode_isRecharge: 0
 --- !u!1 &1393072157
 GameObject:
   m_ObjectHideFlags: 0
@@ -1627,7 +1641,6 @@ MonoBehaviour:
   - {fileID: 4419042677702478408, guid: 70f9c903f5f2b4f2c8f1bc2280dec40b, type: 3}
   - {fileID: 7634813695499131015, guid: 5db29d7085e6943568319d60c96bd900, type: 3}
   playerPrefab: {fileID: 0}
-  spawnPoint: {fileID: 0}
 --- !u!1 &1753743702
 GameObject:
   m_ObjectHideFlags: 0

@@ -91,4 +91,9 @@ public class Flyer_FlightController : MonoBehaviour
         string ret = "Flyer_FlightController [" + gameObject.name + "]\n" + "Velocity: " + myRb.velocity.magnitude;
         return ret;
     }
+
+    public Rigidbody2D getMyRb()
+    {
+        return myRb;
+    }
 }

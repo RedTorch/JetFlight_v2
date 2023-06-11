@@ -10,15 +10,6 @@
       "title": "Todo",
       "cards": [
         {
-          "id": "2dc13c60-2b2c-4264-94e9-464c556823e9",
-          "listId": "159a6b4a-3ec1-4bc8-b7c5-4d6d14b13940",
-          "title": "Enemy AI",
-          "description": "",
-          "labels": [],
-          "checkboxes": [],
-          "comments": []
-        },
-        {
           "id": "65e19973-6723-42c2-8f4d-76a506d6ebd2",
           "listId": "159a6b4a-3ec1-4bc8-b7c5-4d6d14b13940",
           "title": "Placeholder sound",
@@ -35,6 +26,26 @@
           "labels": [],
           "checkboxes": [],
           "comments": []
+        },
+        {
+          "id": "9ffa42b6-bb9e-43fc-8950-b6a1048bf5aa",
+          "listId": "159a6b4a-3ec1-4bc8-b7c5-4d6d14b13940",
+          "title": "Enemy",
+          "description": "",
+          "labels": [],
+          "checkboxes": [
+            {
+              "id": "78210c4a-0d12-4015-83f0-29085cd52451",
+              "title": "Enemy AI/ behavior (parameters are customizable by type); use behavior tree",
+              "checked": false
+            },
+            {
+              "id": "93defef6-1001-49b4-bfa0-082ed776de3d",
+              "title": "Enemy types",
+              "checked": false
+            }
+          ],
+          "comments": []
         }
       ]
     },
@@ -42,15 +53,6 @@
       "id": "1297d253-5270-452b-b38f-8be840fea3bb",
       "title": "Doing",
       "cards": [
-        {
-          "id": "baca627f-f6e2-447e-aef7-605fb20e8162",
-          "listId": "1297d253-5270-452b-b38f-8be840fea3bb",
-          "title": "Plane controller",
-          "description": "",
-          "labels": [],
-          "checkboxes": [],
-          "comments": []
-        },
         {
           "id": "6e31aa68-0123-4ac4-ba76-251b313dc5db",
           "listId": "1297d253-5270-452b-b38f-8be840fea3bb",
@@ -66,7 +68,18 @@
           "title": "Save System",
           "description": "",
           "labels": [],
-          "checkboxes": [],
+          "checkboxes": [
+            {
+              "id": "a29ddaa6-69de-48fb-9265-aa9e0caca564",
+              "title": "Save/ transfer data between scenes",
+              "checked": false
+            },
+            {
+              "id": "d66865ef-eecd-4319-9e40-8d2c774cfd45",
+              "title": "Save data between plays",
+              "checked": false
+            }
+          ],
           "comments": []
         },
         {
@@ -92,7 +105,22 @@
     {
       "id": "20b64c44-82f5-4a3b-8c53-3dbee8125b99",
       "title": "Done",
-      "cards": []
+      "cards": [
+        {
+          "id": "baca627f-f6e2-447e-aef7-605fb20e8162",
+          "listId": "20b64c44-82f5-4a3b-8c53-3dbee8125b99",
+          "title": "Plane controller",
+          "description": "",
+          "labels": [],
+          "checkboxes": [],
+          "comments": [
+            {
+              "id": "1842fa8f-1a25-4583-a4a9-9f838b14bdbd",
+              "comment": "In working condition\n"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "24230581-d0c3-4284-a145-682d13828575",

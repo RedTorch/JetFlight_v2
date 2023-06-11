@@ -21,8 +21,8 @@ public class Flyer_PlayerManager : MonoBehaviour
     {
         myFc.SetRotationTarget(mainCam.ScreenToWorldPoint(Input.mousePosition));
         myFc.SetThrust(Input.GetKey("z"));
-        primary.SetFire(Input.GetMouseButtonDown(0));
-        secondary.SetFire(Input.GetMouseButtonDown(1));
+        primary.SetFire(Input.GetMouseButton(0));
+        secondary.SetFire(Input.GetMouseButton(1));
         equipment.SetFire(Input.GetKey("x"));
     }
 
@@ -32,5 +32,9 @@ public class Flyer_PlayerManager : MonoBehaviour
         ret += secondary ? "\nsecondary: " + secondary.GetDebugString() : "\nsecondary: missing";
         ret += equipment ? "\nequipment: " + equipment.GetDebugString() : "\nequipment: missing";
         return ret;
+    }
+
+    public Flyer_FlightController getMyFc() {
+        return myFc;
     }
 }
