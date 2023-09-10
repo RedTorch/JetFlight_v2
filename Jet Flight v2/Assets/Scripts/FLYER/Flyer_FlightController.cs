@@ -58,25 +58,6 @@ public class Flyer_FlightController : MonoBehaviour
         }
     }
 
-    private void update_GravityPhysics() {
-        // calculations for key values
-        float angleOfAttack = Mathf.Clamp(Vector2.Angle(transform.right, myRb.velocity), 0f, 90f);
-        float angleToVertical = Vector2.Angle(Vector2.up, myRb.velocity);
-        float dragArea = Mathf.Sin(Mathf.Deg2Rad * angleOfAttack);
-        float speed = myRb.velocity.magnitude;
-        // aerodynamic drag
-            // calculate total area (which is the angle between velocity and heading (rotation))
-        myRb.drag = dragCoeff * Mathf.Pow(speed, 2f) * (0.5f + (angleOfAttack/90f));
-        // aerodynamic lift calculated off of over-wing airflow = velocity * angle of attack; if below certain amount, give stall alert
-        float liftForce = liftCoeff * Mathf.Pow(speed, 2f) * (angleToVertical/90f);
-        myRb.AddForce(Vector2.up * liftForce);
-        // myRb.AddForce();
-    }
-
-    private void setGravity(float newG = 1f) {
-        myRb.gravityScale = newG;
-    }
-
     public void SetRotationTarget(Vector3 targetPositionInWorld) {
         Vector2 relativeTargetPosition = new Vector2(targetPositionInWorld.x - transform.position.x, targetPositionInWorld.y - transform.position.y);
         relativeTargetPosition.Normalize();

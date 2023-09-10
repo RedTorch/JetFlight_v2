@@ -54,6 +54,15 @@
       "title": "Doing",
       "cards": [
         {
+          "id": "b9b4c833-6f0e-4f93-9ef4-63f19c353b62",
+          "listId": "1297d253-5270-452b-b38f-8be840fea3bb",
+          "title": " BUG: bullet facing wrong direction",
+          "description": "",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
           "id": "6e31aa68-0123-4ac4-ba76-251b313dc5db",
           "listId": "1297d253-5270-452b-b38f-8be840fea3bb",
           "title": "Menu Screens",
@@ -99,6 +108,40 @@
           "labels": [],
           "checkboxes": [],
           "comments": []
+        },
+        {
+          "id": "fb5c195d-a9be-41c4-a3e6-69ec2bdb530c",
+          "listId": "1297d253-5270-452b-b38f-8be840fea3bb",
+          "title": "Loadout system",
+          "description": "Player is able to equip different weapons (1x primary weapon, 1x special weapon, and 1x equipment)",
+          "labels": [],
+          "checkboxes": [
+            {
+              "id": "b6b6b06a-1826-4487-a769-50d071b118c7",
+              "title": "pods manageable by flyer gameobject",
+              "checked": false
+            },
+            {
+              "id": "64716492-8079-4a71-a9e9-84790f12545f",
+              "title": "flexible pod prefab can accommodate different munitions and equipment (using inheritance?)",
+              "checked": false
+            },
+            {
+              "id": "2abe7f5e-0df8-413e-a505-a16ea23ec28e",
+              "title": "specialized pods for all weapon/ equipment types",
+              "checked": false
+            }
+          ],
+          "comments": []
+        },
+        {
+          "id": "4832ad74-d113-462a-bbea-4c6ee4f3465e",
+          "listId": "1297d253-5270-452b-b38f-8be840fea3bb",
+          "title": "Bullet fade effect (sprite renderer)",
+          "description": "",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
         }
       ]
     },
@@ -119,23 +162,31 @@
               "comment": "In working condition\n"
             }
           ]
-        }
-      ]
-    },
-    {
-      "id": "24230581-d0c3-4284-a145-682d13828575",
-      "title": "Bugs",
-      "cards": [
+        },
         {
           "id": "4af83bfb-280a-4f0d-87e9-a75094b468ab",
-          "listId": "24230581-d0c3-4284-a145-682d13828575",
-          "title": "Camera/ plane jitter",
+          "listId": "20b64c44-82f5-4a3b-8c53-3dbee8125b99",
+          "title": "BUG: Camera/ plane jitter",
+          "description": "",
+          "labels": [],
+          "checkboxes": [],
+          "comments": []
+        },
+        {
+          "id": "cb9808b0-6883-4326-a3ef-297f30eb20df",
+          "listId": "20b64c44-82f5-4a3b-8c53-3dbee8125b99",
+          "title": "3D background implementation",
           "description": "",
           "labels": [],
           "checkboxes": [],
           "comments": []
         }
       ]
+    },
+    {
+      "id": "24230581-d0c3-4284-a145-682d13828575",
+      "title": "Bugs",
+      "cards": []
     }
   ],
   "archive": {

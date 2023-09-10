@@ -12,6 +12,9 @@ public class BulletController : MonoBehaviour
     private float distanceTraveled = 0f;
     [SerializeField] private SpriteRenderer mySpriteRenderer;
     [SerializeField] private float expireTime = 2f;
+    private float expireTime_current = 2f;
+
+    private Color myColor = Color.white;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,16 +22,23 @@ public class BulletController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         float travelDist = Time.deltaTime * speed;
         Vector2 currPos = transform.position;
         if(!collisionActive) {
-            // fade bullet over [expireTime] seconds
+            // transform.Translate(transform.right * travelDist);
+            // ^ match the above with the final movement code once decided
+            expireTime_current -= Time.deltaTime;
+            if(mySpriteRenderer)
+            {
+                myColor.a = expireTime_current / expireTime;
+                mySpriteRenderer.color = myColor;
+            }
             return;
         }
         OnHit(Physics2D.Raycast(currPos, transform.right, travelDist));
-        transform.Translate(transform.right * travelDist);
+        transform.Translate(Vector3.right * travelDist);
         distanceTraveled += travelDist;
         if(distanceTraveled >= maxDistance) {
             ExpireBullet();
@@ -48,7 +58,7 @@ public class BulletController : MonoBehaviour
             {
                 hit.collider.gameObject.GetComponent<DamageReceiver>().TakeDamage(damageAmount);
             }
-            ExpireBullet();
+            Destroy(gameObject);
         }
     }
 
@@ -56,9 +66,6 @@ public class BulletController : MonoBehaviour
     {
         collisionActive = false;
         Destroy(gameObject,expireTime);
-        if(mySpriteRenderer)
-        {
-            //
-        }
     }
+
 }

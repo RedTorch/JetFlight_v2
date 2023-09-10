@@ -39,12 +39,20 @@ public class Flyer_PodManager : MonoBehaviour
         if(current_RPM <= rechargeIncrement_RPM) {
                 current_RPM += Time.deltaTime;
             }
-        if(active_isFiring && current_RPM >= rechargeIncrement_RPM && current_capacity >= 1f) {
-            GameObject newBullet = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(new Vector3(0f, 0f, transform.eulerAngles.z / 2f)));
+        if(active_isFiring && enabled_isFiring && current_RPM >= rechargeIncrement_RPM && current_capacity >= 1f) {
+            // GameObject newBullet = Instantiate(projectilePrefab, transform.position, Quaternion.Euler(new Vector3(0f, 0f, transform.eulerAngles.z / 2f)));
+            GameObject newBullet = Instantiate(projectilePrefab, transform.position, transform.rotation);
+            // GameObject newBullet = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
             if(newBullet.GetComponent<BulletController>()) {
-                float addedV = (Vector3.Project(myPm.getMyFc().getMyRb().velocity, transform.right)).magnitude;
+                float addedV = Mathf.Clamp(Vector3.Project(myPm.getMyFc().getMyRb().velocity, transform.right).magnitude * Time.deltaTime, 0f, Mathf.Infinity);
                 newBullet.GetComponent<BulletController>().SetStartVelocity(addedV);
             }
+
+            // // Debugging lines to check the rotations
+            // Debug.Log("Parent Rotation: " + transform.rotation.eulerAngles);
+            // Debug.Log("Bullet Rotation: " + newBullet.transform.rotation.eulerAngles);
+
+            
             current_capacity -= 1f;
             current_RPM = 0f;
         }
@@ -63,9 +71,9 @@ public class Flyer_PodManager : MonoBehaviour
     public string GetDebugString()
     {
         string ret = "Flyer_PodManager [" + gameObject.name + "]\n";
-        ret += "capacity: " + Mathf.Floor(current_capacity) + " / " + capacity + "\n";
-        ret += "RPM: " + (Mathf.Floor((current_RPM * 100f))/100f) + " / " + (Mathf.Floor((rechargeIncrement_RPM * 100f))/100f) + "\n";
-        ret += "reload: " + (Mathf.Floor((current_reloadTime * 100f))/100f) + " / " + (Mathf.Floor((rechargeIncrement_reloadTime * 100f))/100f);
+        ret += "magazine.capacity: " + Mathf.Floor(current_capacity) + " / " + capacity + "\n";
+        ret += "current-cycle.RPM: " + (Mathf.Floor((current_RPM * 100f))/100f) + " / " + (Mathf.Floor((rechargeIncrement_RPM * 100f))/100f) + "\n";
+        ret += "magazine.reload: " + (Mathf.Floor((current_reloadTime * 100f))/100f) + " / " + (Mathf.Floor((rechargeIncrement_reloadTime * 100f))/100f);
         return ret;
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Flyer_PlayerManager : MonoBehaviour
 {
     [SerializeField] private Flyer_FlightController myFc;
-    private Camera mainCam;
+    [SerializeField] private Camera gameCam;
 
     [SerializeField] private Flyer_PodManager primary;
     [SerializeField] private Flyer_PodManager secondary;
@@ -13,13 +13,12 @@ public class Flyer_PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mainCam = Camera.main;
     }
 
     // Update is called once per frame
     void Update()
     {
-        myFc.SetRotationTarget(mainCam.ScreenToWorldPoint(Input.mousePosition));
+        myFc.SetRotationTarget(gameCam.ScreenToWorldPoint(Input.mousePosition));
         myFc.SetThrust(Input.GetKey("z"));
         primary.SetFire(Input.GetMouseButton(0));
         secondary.SetFire(Input.GetMouseButton(1));
@@ -28,9 +27,9 @@ public class Flyer_PlayerManager : MonoBehaviour
 
     public string GetDebugString() {
         string ret = "Flyer_PlayerManager [" + gameObject.name + "]";
-        ret += primary ? "\nprimary: " + primary.GetDebugString() : "\nprimary: missing";
-        ret += secondary ? "\nsecondary: " + secondary.GetDebugString() : "\nsecondary: missing";
-        ret += equipment ? "\nequipment: " + equipment.GetDebugString() : "\nequipment: missing";
+        ret += "\n\nPRIMARY: " + (primary ? primary.GetDebugString() : "missing");
+        ret += "\n\nSECONDARY: " + (secondary ? secondary.GetDebugString() : "missing");
+        ret += "\n\nEQUIPMENT: " + (equipment ? equipment.GetDebugString() : "missing");
         return ret;
     }
 
