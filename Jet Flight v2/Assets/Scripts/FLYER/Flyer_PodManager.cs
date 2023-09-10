@@ -9,8 +9,8 @@ public class Flyer_PodManager : MonoBehaviour
     [SerializeField] private float capacity = 5f;
     [SerializeField] private float RPM = 120f;
     private float rechargeIncrement_RPM = 1f; // time in seconds between each firing
-    [SerializeField] private float reloadTime = 2f;
-    private float rechargeIncrement_reloadTime = 1f; // time it takes to reload each shell
+    [SerializeField] private float reloadTime = 2f; // time it takes to reload the entire magazine
+    private float rechargeIncrement_reloadTime = 1f; // time it takes to reload each shell (= reloadTime / capacity)
 
     private bool active_isFiring = false;
     private bool enabled_isFiring = true;
@@ -31,7 +31,7 @@ public class Flyer_PodManager : MonoBehaviour
         if(current_capacity < capacity) {
             current_reloadTime += Time.deltaTime;
             if(current_reloadTime >= rechargeIncrement_reloadTime) {
-                current_reloadTime -= reloadTime;
+                current_reloadTime -= rechargeIncrement_reloadTime;
                 current_capacity += 1f;
                 // current_capacity = capacity;
             }
@@ -44,17 +44,12 @@ public class Flyer_PodManager : MonoBehaviour
             GameObject newBullet = Instantiate(projectilePrefab, transform.position, transform.rotation);
             // GameObject newBullet = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
             if(newBullet.GetComponent<BulletController>()) {
-                float addedV = Mathf.Clamp(Vector3.Project(myPm.getMyFc().getMyRb().velocity, transform.right).magnitude * Time.deltaTime, 0f, Mathf.Infinity);
+                float addedV = Vector3.Project(myPm.getMyFc().getMyRb().velocity, transform.right).magnitude;
                 newBullet.GetComponent<BulletController>().SetStartVelocity(addedV);
             }
 
-            // // Debugging lines to check the rotations
-            // Debug.Log("Parent Rotation: " + transform.rotation.eulerAngles);
-            // Debug.Log("Bullet Rotation: " + newBullet.transform.rotation.eulerAngles);
-
-            
             current_capacity -= 1f;
-            current_RPM = 0f;
+            current_RPM = Mathf.Clamp(current_RPM-rechargeIncrement_RPM, -rechargeIncrement_RPM, 0f);
         }
     }
 
@@ -72,8 +67,8 @@ public class Flyer_PodManager : MonoBehaviour
     {
         string ret = "Flyer_PodManager [" + gameObject.name + "]\n";
         ret += "magazine.capacity: " + Mathf.Floor(current_capacity) + " / " + capacity + "\n";
-        ret += "current-cycle.RPM: " + (Mathf.Floor((current_RPM * 100f))/100f) + " / " + (Mathf.Floor((rechargeIncrement_RPM * 100f))/100f) + "\n";
-        ret += "magazine.reload: " + (Mathf.Floor((current_reloadTime * 100f))/100f) + " / " + (Mathf.Floor((rechargeIncrement_reloadTime * 100f))/100f);
+        ret += "current-cycle.RPM: " + (Mathf.Floor((current_RPM * 100f))/100f) + " / " + (Mathf.Floor((rechargeIncrement_RPM * 100f))/100f) + "s\n";
+        ret += "magazine.reload: " + Mathf.Floor((current_reloadTime * 100f))/100f + " / " + Mathf.Floor((rechargeIncrement_reloadTime * 100f))/100f + "s";
         return ret;
     }
 }
