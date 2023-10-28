@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+[RequireComponent(typeof(AudioSource))]
 
 public class BulletController : MonoBehaviour
 {
@@ -23,9 +24,10 @@ public class BulletController : MonoBehaviour
     // Start is called before the first frame update
 
     private string ignoreTag;
+    public AudioClip sound_hit;
     void Start()
     {
-        //
+        expireTime_current = expireTime;
     }
 
     // Update is called once per frame
@@ -35,6 +37,9 @@ public class BulletController : MonoBehaviour
         Vector2 currPos = transform.position;
         if(!collisionActive)
         {
+            transform.Translate(Vector3.right * travelDist);
+            float newScale = 0.3f * expireTime_current / expireTime;
+            transform.localScale = new Vector3(newScale, newScale, 1f);
             // transform.Translate(transform.right * travelDist);
             // ^ match the above with the final movement code once decided
             expireTime_current -= Time.deltaTime;
@@ -47,7 +52,7 @@ public class BulletController : MonoBehaviour
         }
         RaycastHit2D hit = Physics2D.Raycast(currPos, transform.right, travelDist);
         // ^ this should hit both colliders and triggers (which are used to provide the missile hitbox, allowing them to be shot down)
-        if(hit && hit.collider.gameObject.tag == ignoreTag)
+        if(hit && hit.collider.gameObject.tag != ignoreTag)
         {
             onValidCollision(hit);
         }
@@ -94,6 +99,7 @@ public class BulletController : MonoBehaviour
             hit.collider.gameObject.GetComponent<DamageReceiver>().TakeDamage(damageAmount);
         }
         transform.position = hit.point;
+        AudioSource.PlayClipAtPoint(sound_hit, transform.position);
         Destroy(gameObject);
     }
 

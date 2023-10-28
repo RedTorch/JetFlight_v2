@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Flyer_PodManager : MonoBehaviour
 {
-    [SerializeField] private Flyer_PlayerManager myPm;
+    [SerializeField] private Flyer_FlightController myFc;
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private float capacity = 5f;
     [SerializeField] private float RPM = 120f;
@@ -44,9 +44,10 @@ public class Flyer_PodManager : MonoBehaviour
             GameObject newBullet = Instantiate(projectilePrefab, transform.position, transform.rotation);
             // GameObject newBullet = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
             if(newBullet.GetComponent<BulletController>()) {
-                float addedV = Vector3.Project(myPm.getMyFc().getMyRb().velocity, transform.right).magnitude;
+                float addedV = Vector3.Project(myFc.getMyRb().velocity, transform.right).magnitude;
                 newBullet.GetComponent<BulletController>().SetStartVelocity(addedV);
             }
+            newBullet.GetComponent<BulletController>().SetIgnoreTag("Player");
 
             current_capacity -= 1f;
             current_RPM = Mathf.Clamp(current_RPM-rechargeIncrement_RPM, -rechargeIncrement_RPM, 0f);
