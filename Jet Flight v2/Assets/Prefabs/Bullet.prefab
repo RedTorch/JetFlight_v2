@@ -185,7 +185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultSpeed: 25
   maxDistance: 30
-  damageAmount: 0
+  damageAmount: 1
   mySpriteRenderer: {fileID: 3216110045889275615}
   expireTime: 0.1
   isTracking: 0

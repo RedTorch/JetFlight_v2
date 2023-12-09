@@ -11,7 +11,8 @@ public class Flyer_FlightController : MonoBehaviour
     [Header("Thrust + Drag")]
     [SerializeField] private float maxThrust = 10f;
     [SerializeField] private float dragCoeff = 1f;
-    [SerializeField] private float liftCoeff = 1f;
+    [SerializeField] private float stallFloor = 1f;
+    private float liftCoeff = 1f;
 
     [Header("Maneuverability")]
     [SerializeField] private float rotationSpeed = 180f;
@@ -21,6 +22,8 @@ public class Flyer_FlightController : MonoBehaviour
     private bool enabled_Drag = true;
 
     private bool active_Thrust = false;
+
+    private bool isStalled = true;
 
     private float goalRotation = 0f;
 
@@ -39,6 +42,8 @@ public class Flyer_FlightController : MonoBehaviour
     }
 
     void FixedUpdate() {
+        float forwardVelocity = Vector2.Dot(myRb.velocity, transform.right);
+        isStalled = (forwardVelocity < stallFloor);
         if(enabled_Rotation) {
             multiplier_RotateSpeed_onThrustEnabled = active_Thrust ? 1f : 2f;
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, goalRotation), rotationSpeed * multiplier_RotateSpeed_onThrustEnabled * Time.deltaTime);
@@ -56,6 +61,7 @@ public class Flyer_FlightController : MonoBehaviour
         } else {
             myTr.emitting = false;
         }
+        myRb.gravityScale = System.Convert.ToSingle(isStalled) * 1f;
     }
 
     public void SetRotationTarget(Vector3 targetPositionInWorld) {
@@ -77,4 +83,20 @@ public class Flyer_FlightController : MonoBehaviour
     {
         return myRb;
     }
+
+    public bool getIsStalled()
+    {
+        return isStalled;
+    }
+
+    public float getRotation()
+    {
+        return transform.rotation.z;
+    }
 }
+
+// information about
+// time
+// space
+// others? / procedure (e.g. piano guitar)
+// is used to represent in the [sound] modality

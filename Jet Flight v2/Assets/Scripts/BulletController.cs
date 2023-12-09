@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -23,7 +24,7 @@ public class BulletController : MonoBehaviour
     private Color myColor = Color.white;
     // Start is called before the first frame update
 
-    private string ignoreTag;
+    private string[] ignoreTags;
     public AudioClip sound_hit;
     void Start()
     {
@@ -52,9 +53,13 @@ public class BulletController : MonoBehaviour
         }
         RaycastHit2D hit = Physics2D.Raycast(currPos, transform.right, travelDist);
         // ^ this should hit both colliders and triggers (which are used to provide the missile hitbox, allowing them to be shot down)
-        if(hit && hit.collider.gameObject.tag != ignoreTag)
+        if(hit && !ignoreTags.Contains(hit.collider.gameObject.tag))
         {
             onValidCollision(hit);
+        }
+        else if(hit && ignoreTags.Contains(hit.collider.gameObject.tag))
+        {
+            print("invalid hit, target has ignored tag" + hit.collider.gameObject.tag);
         }
 
         if(isTracking && target)
@@ -76,9 +81,9 @@ public class BulletController : MonoBehaviour
         speed = defaultSpeed + velocityOfFlyer;
     }
 
-    public void SetIgnoreTag(string newTag)
+    public void SetIgnoreTags(string[] newTags)
     {
-        ignoreTag = newTag;
+        ignoreTags = newTags;
     }
 
     private void trackTarget()
@@ -94,9 +99,9 @@ public class BulletController : MonoBehaviour
 
     private void onValidCollision(RaycastHit2D hit)
     {
-        if(hit.collider.gameObject.GetComponent<DamageReceiver>())
+        if(hit.collider.gameObject.GetComponent<Flyer_StatusManager>())
         {
-            hit.collider.gameObject.GetComponent<DamageReceiver>().TakeDamage(damageAmount);
+            hit.collider.gameObject.GetComponent<Flyer_StatusManager>().TakeDamage(damageAmount);
         }
         transform.position = hit.point;
         AudioSource.PlayClipAtPoint(sound_hit, transform.position);

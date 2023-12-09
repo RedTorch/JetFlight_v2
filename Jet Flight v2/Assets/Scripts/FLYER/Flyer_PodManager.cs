@@ -12,6 +12,8 @@ public class Flyer_PodManager : MonoBehaviour
     [SerializeField] private float reloadTime = 2f; // time it takes to reload the entire magazine
     private float rechargeIncrement_reloadTime = 1f; // time it takes to reload each shell (= reloadTime / capacity)
 
+    [SerializeField] private string[] ignoreTags;
+
     private bool active_isFiring = false;
     private bool enabled_isFiring = true;
     private float current_capacity = 0f;
@@ -23,6 +25,7 @@ public class Flyer_PodManager : MonoBehaviour
         rechargeIncrement_RPM = 60f/RPM;
         rechargeIncrement_reloadTime = reloadTime/capacity;
         current_capacity = capacity;
+        ignoreTags = new string[] {myFc.gameObject.tag};
     }
 
     // Update is called once per frame
@@ -47,7 +50,7 @@ public class Flyer_PodManager : MonoBehaviour
                 float addedV = Vector3.Project(myFc.getMyRb().velocity, transform.right).magnitude;
                 newBullet.GetComponent<BulletController>().SetStartVelocity(addedV);
             }
-            newBullet.GetComponent<BulletController>().SetIgnoreTag("Player");
+            newBullet.GetComponent<BulletController>().SetIgnoreTags(ignoreTags);
 
             current_capacity -= 1f;
             current_RPM = Mathf.Clamp(current_RPM-rechargeIncrement_RPM, -rechargeIncrement_RPM, 0f);
